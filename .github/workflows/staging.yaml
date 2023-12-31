@@ -29,7 +29,7 @@ jobs:
         name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: martinkey
+          username: deandonkov
           password: ${{ secrets.DOCKER_SECRET }}
       -
         name: Build and push staging
@@ -37,5 +37,5 @@ jobs:
         with:
           context: "."
           push: true
-          tags: martinkey/interface:staging # Change the name of the image
+          tags: martinkey/zoo-backend:staging # Change the name of the image
           build-args: PROFILE=${{ env.PILLAR }}
