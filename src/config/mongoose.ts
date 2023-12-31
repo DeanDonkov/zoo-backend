@@ -8,17 +8,17 @@ const qopts = '';
 const options: mongoose.ConnectOptions = {
 };
 
-if (DB.CA_CERT) {
+if (DB.Mongo.CA_CERT) {
   options.tls = true;
-  options.tlsCAFile = DB.CA_CERT;
+  options.tlsCAFile = DB.Mongo.CA_CERT;
 }
 
 mongoose.set('strictQuery', true);
 
-const mongoUri = DB.URI
-  ? DB.URI : DB.USERNAME && DB.PASSWORD
-  ? `mongodb+srv://${DB.USERNAME}:${DB.PASSWORD}@${DB.HOST}/${DB.NAME}${qopts}`
-    : `mongodb://${DB.HOST}:${DB.PORT}/${DB.NAME}`;
+const mongoUri = DB.Mongo.URI
+  ? DB.Mongo.URI : DB.Mongo.USERNAME && DB.Mongo.PASSWORD
+  ? `mongodb+srv://${DB.Mongo.USERNAME}:${DB.Mongo.PASSWORD}@${DB.Mongo.HOST}/${DB.Mongo.NAME}${qopts}`
+    : `mongodb://${DB.Mongo.HOST}:${DB.Mongo.PORT}/${DB.Mongo.NAME}`;
 
 /**
  * @summary Connects the app to the DB Server
@@ -41,7 +41,7 @@ export function connectDB(callbackFunc: () => Promise<void>, disconnect: boolean
   });
 
   db.once('open', async () => {
-    logger.info(`DB ${DB.NAME} connected successfully.`);
+    logger.info(`DB ${db.name} connected successfully.`);
 
     await callbackFunc();
 
