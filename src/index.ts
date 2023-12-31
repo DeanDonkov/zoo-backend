@@ -2,6 +2,8 @@ import express, { Express } from 'express';
 import http from 'http';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import baseRouter from './routes';
+
 dotenv.config();
 
 import mongoose from './config/mongoose';
@@ -24,6 +26,8 @@ app.use(cors());
 app.use(express.json());
 app.use(router);
 app.use(errorHandler);
+
+app.use('/api', baseRouter)
 
 let server: http.Server | undefined;
 
