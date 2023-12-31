@@ -13,6 +13,8 @@ import router from './routes';
 import logger from './utils/logger';
 
 import { PORT } from './config/config';
+import { sequelize } from './config/sequalize';
+
 
 const app = express();
 
@@ -43,5 +45,6 @@ process.on('SIGTERM', () => {
  * @param app The Express app
  */
 async function afterConnect(app: Express): Promise<void> {
+  await sequelize.sync({ force: false })
   app.emit('ready');
 }
